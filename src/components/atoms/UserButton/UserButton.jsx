@@ -1,12 +1,34 @@
-import { LogOutIcon, SettingsIcon } from 'lucide-react';
+import { LogOutIcon, PencilIcon, SettingsIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/context/useAuth';
+import { useToast } from '@/hooks/use-toast';
+import { useCreateWorkspaceModal } from '@/hooks/context/useCreateWorkspaceModal';
 
 export const UserButton = () =>{
 
-    const {auth} = useAuth();
+    const {auth , Logout} = useAuth();
+
+    const navigate = useNavigate();
+
+    const { toast } = useToast();
+
+    const {setOpenCreateWorkspaceModal} = useCreateWorkspaceModal();
+
+    function openWorkspaceCreateModal(){
+        setOpenCreateWorkspaceModal(true);
+    }
+
+    async function handleLogout() {
+        await Logout();
+        toast({
+            title: 'Successfully signed out',
+            type: 'success'
+        });
+        navigate('/auth/signin');
+    }
 
     return (
         <DropdownMenu>
@@ -17,11 +39,15 @@ export const UserButton = () =>{
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
+                <DropdownMenuItem onClick={openWorkspaceCreateModal}>
+                    <PencilIcon className='size-4 mr-2 h-10' />
+                    Create a Workspace
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                     <SettingsIcon className='size-4 mr-2 h-10' />
                     Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                     <LogOutIcon className='size-4 mr-2 h-10' />
                     Logout
                 </DropdownMenuItem>
