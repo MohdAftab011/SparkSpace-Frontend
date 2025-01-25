@@ -3,6 +3,7 @@ import {ChevronDownIcon, ListFilterIcon, SquarePenIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/context/useAuth';
+import { useWorkspacePreferencesModal } from '@/hooks/context/useWorkspacePreferencesModal';
 
 export const WorkspacePanelHeader = ({workspace})=>{
 
@@ -11,6 +12,8 @@ export const WorkspacePanelHeader = ({workspace})=>{
     const {auth} = useAuth();
 
     const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member=>member.memberId===auth?.user?._id && member.role==='admin');
+
+    const {setOpenPreferences} = useWorkspacePreferencesModal();
     return(
         <div className="flex items-center justify-between px-4 h-[50px] gap-0.5">
             <DropdownMenu>
@@ -43,7 +46,7 @@ export const WorkspacePanelHeader = ({workspace})=>{
 
                     {isLoggedInUserAdminOfWorkspace && (
                         <>
-                            <DropdownMenuItem className="cursor-pointer py-2">
+                            <DropdownMenuItem onClick={()=>setOpenPreferences(true)} className="cursor-pointer py-2">
                                 Preferences
                             </DropdownMenuItem> 
                             <DropdownMenuSeparator/>
