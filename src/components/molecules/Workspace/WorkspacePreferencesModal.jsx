@@ -10,6 +10,7 @@ import { useDeleteWorkpace } from '@/hooks/apis/workspaces/useDeleteWorkspace';
 import { useUpdateWorkpace } from '@/hooks/apis/workspaces/useUpdateWorkspace';
 import { useWorkspacePreferencesModal } from '@/hooks/context/useWorkspacePreferencesModal';
 import { useToast } from '@/hooks/use-toast';
+import { useConfirm } from '@/hooks/useConfirm';
 
 
 export const WorkspacePreferencesModal = ()=>{
@@ -29,6 +30,10 @@ export const WorkspacePreferencesModal = ()=>{
 
     const {isPending,updateWorkspaceMutation} = useUpdateWorkpace(workspaceId);
 
+    const {confirmation , ConfirmDialog} =  useConfirm({title:'Do you want to delete the workspace',message: 'This action cannot be undone.'});
+
+    const { confirmation: updateConfirmation, ConfirmDialog: UpdateDialog } = useConfirm({ title: 'Do you want to update the workspace?', message: 'This action cannot be undone.' });
+
     const [renameValue, setRenameValue] = useState(workspace?.name);
 
     function handleClose() {
@@ -38,6 +43,11 @@ export const WorkspacePreferencesModal = ()=>{
     async function handleFormSubmit(e){
         e.preventDefault();
         try {
+            const ok = await updateConfirmation();
+            console.log('Confimation received');
+            if(!ok) {
+                return;
+            }
             await updateWorkspaceMutation(renameValue);
             queryClient.invalidateQueries(`fetchWorkspaceById-${workspace?._id}`);
             setOpenPreferences(false);
@@ -61,6 +71,10 @@ export const WorkspacePreferencesModal = ()=>{
 
     async function handleDelete(){
         try {
+            const ok = await confirmation();
+            if(!ok){
+                return;
+            }
             await deleteWorkspaceMutation();
             navigate('/home');
             queryClient.invalidateQueries('fetchWorkspaces');
@@ -79,7 +93,10 @@ export const WorkspacePreferencesModal = ()=>{
     }
 
     return(
-        <Dialog open={openPreferences} onOpenChange={handleClose}>
+        <>
+            <ConfirmDialog/>
+            <UpdateDialog/>
+            <Dialog open={openPreferences} onOpenChange={handleClose}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
@@ -160,5 +177,7 @@ export const WorkspacePreferencesModal = ()=>{
                 </div>
             </DialogContent>
         </Dialog>
+        </>
+        
     );
 };
