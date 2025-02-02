@@ -17,6 +17,10 @@ export const AppRoutes = () => {
           <Route path="/auth/signin" element={<Auth><SigninContainer /></Auth>} />
           <Route path="/home" element={<ProtectedRoute><Auth><Home/></Auth></ProtectedRoute>} />
           <Route path="/workspace/:workspaceId" element={<ProtectedRoute><WorkspaceLayout>Workspace</WorkspaceLayout></ProtectedRoute>} />
+          <Route 
+            path="/workspace/:workspaceId/channels/:channelId"
+            element={<ProtectedRoute>Channel</ProtectedRoute>}
+          />
           <Route path="/*" element={<NotFound />} />
         </Routes>
     );

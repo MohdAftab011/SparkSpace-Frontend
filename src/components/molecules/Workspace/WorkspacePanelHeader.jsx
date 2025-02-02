@@ -1,6 +1,7 @@
 import {ChevronDownIcon, ListFilterIcon, SquarePenIcon } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { WorkspaceInviteModal } from '@/components/organisms/Modals/WorkspaceInviteModal';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/hooks/context/useAuth';
@@ -10,11 +11,13 @@ export const WorkspacePanelHeader = ({workspace})=>{
 
     const workspacemembers = workspace?.members;
 
+    const [openInviteModal,setOpenInviteModal] = useState(false);
+
     const {setWorkspace}  = useWorkspacePreferencesModal();
 
     const {auth} = useAuth();
 
-    const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member=>member.memberId===auth?.user?._id && member.role==='admin');
+    const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member=>member.memberId._id===auth?.user?._id && member.role==='admin');
 
     const {setOpenPreferences,setInitialValue} = useWorkspacePreferencesModal();
 
@@ -23,7 +26,15 @@ export const WorkspacePanelHeader = ({workspace})=>{
     },[]);
 
     return(
-        <div className="flex items-center justify-between px-4 h-[50px] gap-0.5">
+        <>
+            <WorkspaceInviteModal 
+                openInviteModal={openInviteModal} 
+                setOpenInviteModal={setOpenInviteModal} 
+                workspaceName={workspace?.name} 
+                joinCode={workspace?.joinCode}
+                workspaceId={workspace?._id}
+            />
+            <div className="flex items-center justify-between px-4 h-[50px] gap-0.5">
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <Button 
@@ -64,7 +75,7 @@ export const WorkspacePanelHeader = ({workspace})=>{
                                 Preferences
                             </DropdownMenuItem> 
                             <DropdownMenuSeparator/>
-                            <DropdownMenuItem className="cursor-pointer py-2">
+                            <DropdownMenuItem className="cursor-pointer py-2" onClick={()=>{setOpenInviteModal(true);}}>
                                 Invite people to {workspace?.name}
                             </DropdownMenuItem>
 
@@ -90,6 +101,7 @@ export const WorkspacePanelHeader = ({workspace})=>{
                 </Button>
             </div>
 
-        </div>
+            </div>
+        </>
     );
 };

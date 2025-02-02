@@ -177,7 +177,6 @@ export const WorkspacePreferencesModal = ()=>{
                 </div>
             </DialogContent>
         </Dialog>
-        </>
-        
+        </>     
     );
 };
