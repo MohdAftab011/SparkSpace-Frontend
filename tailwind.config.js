@@ -1,10 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+import * as tailwindcssanimate from 'tailwindcss-animate';
 export default {
     darkMode: ['class'],
-    content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+    content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
   theme: {
   	extend: {
   		borderRadius: {
@@ -18,7 +16,7 @@ export default {
 			  slack: {
 				DEFAULT: '#203f8e',
 				dark: '#0b1530',
-				medium: '#082570'
+				medium: '#032785'
 			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
@@ -62,6 +60,6 @@ export default {
   	}
   },
   // eslint-disable-next-line no-undef
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindcssanimate],
 };
 
