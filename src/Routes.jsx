@@ -9,6 +9,7 @@ import { NotFound } from './pages/NotFound/NotFound';
 import { Channel } from './pages/Workspace/Channel/Channel';
 import { JoinPage } from './pages/Workspace/JoinPage';
 import { WorkspaceLayout } from './pages/Workspace/Layout';
+import { LandingPage } from './pages/LandingPage/LandingPage';
 
 
 
@@ -25,6 +26,7 @@ export const AppRoutes = () => {
           />
           <Route path='/workspace/join/:workspaceId' element={<JoinPage/>}/>
           <Route path="/*" element={<NotFound />} />
+          <Route path="/" element={<LandingPage/>} />
         </Routes>
     );
 };

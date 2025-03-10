@@ -1,12 +1,14 @@
 import 'quill/dist/quill.snow.css'; // ES6
 
+import { ImageIcon } from 'lucide-react';
 import Quill from 'quill';
 import { useEffect, useRef, useState } from 'react';
+import { MdSend } from 'react-icons/md';
 import { PiTextAa } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
+
 import { ToolTip } from '../Tooltip/Tooltip';
-import { ImageIcon } from 'lucide-react';
 
 
 export const Editor = ({
@@ -88,7 +90,7 @@ export const Editor = ({
             >
                 <div className='h-full ql-custom' ref={containerRef} />
                 <div className='flex px-2 pb-2 z-[5]'>
-                    <ToolTip label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='bottom' align='center'>
+                    <ToolTip label={!isToolbarVisible ? 'Hide toolbar' : 'Show toolbar'} side='bottom' align='center'>
                         <Button
                             size="iconSm"
                             variant="ghost"
@@ -106,6 +108,20 @@ export const Editor = ({
                             onClick={() => {}}
                         >
                             <ImageIcon className='size-4' />
+                        </Button>
+                    </ToolTip>
+                    <ToolTip label="Send Message">
+                        <Button
+                            size="iconSm"
+                            className="ml-auto bg-[#007a6a] hover:bg-[#007a6a]/80 text-white"
+                            onClick={() => {
+                                const messageContent = JSON.stringify(quillRef.current?.getContents());
+                                onSubmit({ body: messageContent });
+                                quillRef.current?.setText('');
+                            }}
+                            disabled={false}
+                        >
+                            <MdSend className='size-4' />
                         </Button>
                     </ToolTip>
                 </div>
