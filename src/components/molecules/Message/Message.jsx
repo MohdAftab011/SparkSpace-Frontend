@@ -41,7 +41,7 @@ export const Message = ({
                         <button
                             className='text-xs text-muted-foreground hover:underline'
                         >
-                            {createdAt}
+                            {createdAt || 'Just Now'}
                         </button>
                     </div>
 
