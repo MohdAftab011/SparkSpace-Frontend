@@ -1,8 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white">
       <section className="py-10 sm:py-16 lg:py-24">
@@ -15,54 +20,48 @@ export const Hero = () => {
             >
               <Card className="border-0 shadow-none bg-background">
                 <CardContent className="p-6">
-                  <h1 className="text-4xl font-bold text-black sm:text-6xl lg:text-7xl font-['Poppins']">
-                    Collaborate remotely, with
+                  <h1 className="text-2xl font-bold text-black sm:text-4xl lg:text-5xl font-['Poppins']">
+                  Real-time collaborative platform,
                     <div className="relative inline-block mt-4">
                       <span className="absolute inset-x-0 bottom-0 h-3 bg-[#032785]/20 w-full rounded-full" />
-                      <span className="relative text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
-                        Postcrafts.
+                      <span className=" ml-5 relative text-3xl font-bold text-black sm:text-5xl lg:text-6xl">
+                        SparkSpace
                       </span>
                     </div>
                   </h1>
 
                   <p className="mt-8 text-base text-gray-600 sm:text-xl font-['Inter']">
-                    Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat.
+                  Real-time collaborative platform for workspaces, channels & messaging with advanced admin controls & a responsive design.
                   </p>
 
                   <div className="flex flex-col gap-4 mt-10 sm:flex-row sm:items-center sm:space-x-8">
                   <Button
                     size="xl"
                     className="text-lg h-14 px-8 bg-[#203f8e] hover:bg-[#1a357a] transition-all"
+                    onClick={()=>navigate('/auth/signup')}
                     >
-                    Start exploring
+                    Get Started
                     </Button>
                     
                     <Button
-                      variant="outline"
-                      size="xl"
-                      className="text-lg h-14 px-8 gap-2 hover:bg-[#203f8e]/10"
+                    variant="outline"
+                    size="xl"
+                    className="text-lg h-14 px-8 gap-2 hover:bg-[#203f8e]/10"
+                    onClick={() => window.open('https://github.com/MohdAftab011/SparkSpace-Frontend', '_blank')}
+                  >
+                    <svg
+                      className="w-7 h-7 text-[#203f8e]"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <svg
-                        className="w-7 h-7 text-[#203f8e]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="1.5"
-                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      Watch video
-                    </Button>
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.49v-1.72c-2.78.6-3.37-1.34-3.37-1.34-.46-1.17-1.12-1.48-1.12-1.48-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.58 9.58 0 012.5-.34c.85.004 1.71.12 2.5.34 1.9-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.38.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.91.68 1.84v2.73c0 .27.18.59.69.49A10.003 10.003 0 0022 12c0-5.52-4.48-10-10-10z"
+                      />
+                    </svg>
+                    GitHub Repository
+                  </Button>
                   </div>
                 </CardContent>
               </Card>

@@ -24,11 +24,11 @@ export const TopBar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-6">
-            <Button onClick={()=>navigate('/auth/signup')}
+            <Button onClick={()=>navigate('/auth/signin')}
               variant="default" 
               className="text-white bg-blue-600 hover:bg-blue-700"
             >
-              SignUp/Login
+              Sign In / Register
             </Button>
           </div>
 
